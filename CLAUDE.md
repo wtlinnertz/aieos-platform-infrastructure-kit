@@ -24,11 +24,12 @@ tests/                 # Structural integrity checks
 
 ## Artifact Types
 
-This kit produces three governed artifact types:
+This kit produces four governed artifact types:
 
 1. **Platform Decision Record (PDR)** — Documents a specific technology or infrastructure decision with rationale, alternatives considered, and tradeoffs accepted. Each decision is a separate PDR. PDR IDs are sequential per project.
 2. **Infrastructure Specification (ISPEC)** — Defines deployment targets, resource requirements, scaling rules, networking, and operational constraints. Versioned and re-frozen when infrastructure changes.
 3. **Environment Matrix (EM)** — Defines all environments, promotion rules between them, parity requirements, access controls, and data management policies. Versioned and re-frozen as environments evolve.
+4. **System Model Record (SMR)** — Captures the entity-relationship graph of running systems: service inventory, inter-service dependencies, environment deployment mapping, and artifact version tracking. Versioned and re-frozen when system topology changes.
 
 Each artifact type has exactly four governing files: spec, template, prompt, validator.
 
@@ -49,11 +50,13 @@ Each artifact type has exactly four governing files: spec, template, prompt, val
 Step 1: Platform Decision Record(s) → generate per decision → validate → freeze
 Step 2: Infrastructure Specification → generate from PDRs + requirements
         → validate → freeze (versioned; re-frozen when infrastructure changes)
+Step 2a: System Model Record → generate from ISPEC + system inventory
+         → validate → freeze (versioned; re-frozen when topology changes)
 Step 3: Environment Matrix → generate from ISPEC + organizational policy
         → validate → freeze (versioned; re-frozen as environments evolve)
 ```
 
-PDRs are independent — each decision gets its own PDR. ISPEC references frozen PDRs. EM references frozen ISPEC.
+PDRs are independent — each decision gets its own PDR. ISPEC references frozen PDRs. SMR and EM can be generated in parallel — both depend on frozen ISPEC.
 
 ## Boundary Contracts
 

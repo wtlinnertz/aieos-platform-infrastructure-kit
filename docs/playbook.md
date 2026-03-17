@@ -16,15 +16,18 @@ Step 1: Platform Decision Record(s) (PDR) — generated, one per decision
 Step 2: Infrastructure Specification (ISPEC) — generated
          │ Validate → Freeze
          │ (versioned; re-frozen when infrastructure changes)
-         ▼
-Step 3: Environment Matrix (EM) — generated
-         │ Validate → Freeze
-         │ (versioned; re-frozen as environments evolve)
-         ▼
+         ├──────────────────────────┐
+         ▼                          ▼
+Step 2a: System Model Record    Step 3: Environment Matrix (EM)
+         (SMR) — generated              — generated
+         │ Validate → Freeze            │ Validate → Freeze
+         │ (versioned; re-frozen        │ (versioned; re-frozen as
+         │  when topology changes)      │  environments evolve)
+         ▼                              ▼
 Downstream consumption: EEK, REK, RRK
 ```
 
-PDRs are independent — each decision gets its own PDR, and they can be frozen in any order. ISPEC depends on frozen PDRs. EM depends on frozen ISPEC.
+PDRs are independent — each decision gets its own PDR, and they can be frozen in any order. ISPEC depends on frozen PDRs. EM and SMR depend on frozen ISPEC and can be generated in parallel.
 
 ---
 
@@ -114,6 +117,44 @@ The frozen ISPEC is reused until infrastructure changes materially. See the ISPE
 
 ---
 
+## Step 2a — System Model Record
+
+**Artifact:** System Model Record (SMR)
+**Type:** Generated
+**Spec:** `docs/specs/smr-spec.md` (5 hard gates)
+**Template:** `docs/artifacts/smr-template.md`
+**Prompt:** `docs/prompts/smr-prompt.md`
+**Validator:** `docs/validators/smr-validator.md`
+
+### Purpose
+
+The SMR captures the entity-relationship graph of running systems — what services exist, how they connect, where they are deployed, and what versions are running. It provides a governed snapshot of system topology that downstream kits can reference for deployment context and dependency analysis.
+
+### Inputs
+- Frozen ISPEC (mandatory)
+- System inventory data (service list, types, owners, versions)
+- Dependency information (inter-service communication patterns)
+- Frozen PDRs (informational)
+- Frozen EM (informational, when available)
+
+### Process
+
+1. Ensure the ISPEC is frozen. The SMR must reference a frozen ISPEC.
+2. In a new AI session, provide: frozen ISPEC + system inventory + dependency data + `docs/specs/smr-spec.md` + `docs/artifacts/smr-template.md` + relevant principles files. Use the SMR prompt (`docs/prompts/smr-prompt.md`).
+3. Review the generated SMR. Confirm the service inventory is complete, dependencies are accurately mapped, and environment deployment data is correct.
+4. Validate the SMR in a separate session using `docs/validators/smr-validator.md` and the spec.
+5. On PASS: system owner reviews and freezes. **The frozen SMR is now the active version.**
+6. On FAIL: address blocking issues and re-generate or correct; re-validate.
+
+### Freeze Points
+- SMR must be frozen before downstream kits reference it for system topology
+- SMR may be generated in parallel with EM (both depend on frozen ISPEC)
+
+### Reuse
+The frozen SMR is reused until system topology changes (service added, removed, or dependency changed). See the SMR Revision Protocol below.
+
+---
+
 ## Step 3 — Environment Matrix
 
 **Artifact:** Environment Matrix (EM)
@@ -185,6 +226,7 @@ Infrastructure-related PMR findings may trigger PDR reassessment or ISPEC revisi
 |----------|------------|---------------|
 | PDR | After validation and decision authority approval | ISPEC generation (for referenced decisions) |
 | ISPEC | After validation and infrastructure owner approval | EM generation; EEK, REK, RRK consumption |
+| SMR | After validation and system owner approval | Downstream system topology references |
 | EM | After validation and environment owner approval | REK promotion rules; RRK monitoring scope |
 
 ---
@@ -199,6 +241,18 @@ When compute, storage, networking, scaling rules, or DR strategy must change:
 4. Validate and freeze the new ISPEC version.
 5. Downstream artifacts that reference the ISPEC must be reviewed: EM may need a new version; REK and RRK references must be updated.
 6. If the revision changes DR strategy, notify RRK — the SRP may need revision to reflect updated infrastructure baselines.
+
+---
+
+## SMR Revision Protocol
+
+When system topology changes — services added, removed, or dependency relationships changed:
+
+1. **Do not edit the frozen SMR.** The frozen SMR remains immutable.
+2. The team identifies the trigger: new service deployed, service decommissioned, dependency added or removed, version drift discovered.
+3. Generate a new SMR version (v2, v3, etc.) using the SMR prompt with updated inputs.
+4. Validate and freeze the new SMR version.
+5. Notify downstream consumers that the system topology has changed.
 
 ---
 
@@ -300,4 +354,6 @@ The Engagement Record (ER) is a project-level artifact that lives in the consumi
 | ISPEC revised (new version) | Add new ISPEC version to §5; note revision date |
 | EM frozen | Add EM ID and version to §5 |
 | EM revised (new version) | Add new EM version to §5; note revision date |
+| SMR frozen | Add SMR ID and version to §5 |
+| SMR revised (new version) | Add new SMR version to §5; note revision date |
 | PDR superseded | Update original PDR status in §5; add superseding PDR |

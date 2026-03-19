@@ -40,6 +40,7 @@ This kit is **foundational** — its artifacts are created early in an initiativ
 | PDR | During initiative planning, as technology decisions are made | Decisions must be recorded before they become implicit assumptions |
 | ISPEC | During system design (before or alongside ACF/SAD in EEK) | Infrastructure must be specified before deployment planning |
 | EM | During project setup (before or alongside TDD in EEK) | Environments must be defined before environment-specific testing or deployment |
+| SMR | When the system has 3+ independently deployable services, OR when system topology is needed for downstream SAD/TDD architecture decisions | System topology must be captured before downstream kits make deployment or monitoring assumptions. Optional for monoliths and single-service systems. Document the skip/adopt decision in the ER. |
 
 PDRs may also be created at any point during an initiative when a new technology or infrastructure decision arises. Each decision gets its own PDR regardless of timing.
 
@@ -203,10 +204,17 @@ The EM defines all environments, their promotion rules, parity requirements, acc
 - Frozen EM provides environment promotion rules and gates for release strategy
 
 ### To RRK (Layer 6)
-**Handoff artifacts:** Frozen ISPEC
+**Handoff artifacts:** Frozen ISPEC, frozen SMR (when adopted)
 
 - Frozen ISPEC provides infrastructure monitoring baseline for SRP
 - DR specifications inform RRK incident management planning
+- Frozen SMR provides monitoring topology context — service boundaries, dependencies, and deployment mapping inform where and how monitoring is scoped
+
+### SMR Consumers
+
+Beyond the downstream handoffs above, the frozen SMR serves:
+- **RRK (Layer 6):** Monitoring topology context — service boundaries and inter-service dependencies inform monitoring scope and alert routing
+- **EEK (Layer 4):** Deployment context for SAD/TDD — system topology informs architecture decisions and technical design constraints
 
 ---
 

@@ -2,21 +2,19 @@
 
 **Layer 12 of the AIEOS system — Platform & Infrastructure**
 
-This kit governs infrastructure decisions, deployment targets, and environment management. It is a foundational kit that provides inputs to multiple pipeline layers — its artifacts are created early in an initiative and referenced throughout the delivery lifecycle.
+This kit governs infrastructure decisions, deployment targets, and environment management. It's a foundational kit that provides inputs to multiple pipeline layers, and its artifacts are created early in an initiative and referenced throughout the delivery lifecycle.
 
----
+## What this kit does
 
-## What This Kit Does
+Infrastructure decisions, deployment specs, and environment configurations are foundational. They shape architecture, release strategy, and operational health. Without governed infrastructure artifacts, these concerns scatter across kits that consume them, creating duplication, inconsistency, and invisible assumptions.
 
-Infrastructure decisions, deployment specifications, and environment configurations are foundational inputs that shape architecture, release strategy, and operational health. Without governed infrastructure artifacts, these concerns are scattered across kits that consume them — creating duplication, inconsistency, and invisible assumptions. This kit governs the gap:
+This kit fills the gaps:
 
 - **Technology decisions** — What platform, database, runtime, or service to use and why (with alternatives considered and tradeoffs accepted)
 - **Infrastructure specifications** — What compute, storage, networking, and scaling rules support the architecture
 - **Environment management** — What environments exist, how they differ, how code and config move between them, and who has access
 
----
-
-## Artifact Types
+## Artifact types
 
 This kit produces three governed artifact types:
 
@@ -28,17 +26,13 @@ This kit produces three governed artifact types:
 
 Each governed artifact type has exactly four governing files: spec, template, prompt, validator.
 
----
-
-## Quick Start
+## Quick start
 
 1. Read `docs/playbook.md` — the complete process definition
 2. Read `docs/how-to-use-with-ai.md` — session setup and AI tool guidance
 3. See `examples/` — worked examples
 
----
-
-## Repository Structure
+## Repository structure
 
 ```
 docs/
@@ -58,9 +52,7 @@ tests/
 CLAUDE.md              # AI operating instructions
 ```
 
----
-
-## AIEOS Layer
+## AIEOS layer
 
 | Layer | Kit | Status |
 |-------|-----|--------|

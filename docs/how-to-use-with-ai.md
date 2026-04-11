@@ -1,6 +1,6 @@
 # How to Use This Kit with AI
 
-This guide explains how to set up AI sessions for each step in the Platform & Infrastructure Kit workflow. Follow the session setup instructions precisely — incorrect session setup is the most common cause of poor artifact quality.
+This guide explains how to set up AI sessions for each step in the Platform & Infrastructure Kit workflow. Follow the session setup instructions precisely. Incorrect session setup is the most common cause of poor artifact quality.
 
 ---
 
@@ -8,18 +8,17 @@ This guide explains how to set up AI sessions for each step in the Platform & In
 
 **One artifact per session.** Do not generate multiple artifacts in the same session.
 
-**Separate generation and validation.** Always validate in a new session. Never ask the AI that generated an artifact to validate it — this produces self-validation bias.
+**Separate generation and validation.** Always validate in a new session. Never ask the AI that generated an artifact to validate it. This produces self-validation bias.
 
 **Include full frozen documents.** Do not summarize upstream artifacts. Provide the complete document.
 
----
 
-## PDR — Generation Session
+## PDR. Generation Session
 
 **Session setup:**
 ```
 Documents to provide:
-1. Decision context (problem, constraints, opportunity — from decision maker)
+1. Decision context (problem, constraints, opportunity. From decision maker)
 2. Alternatives considered with pros/cons (from decision maker)
 3. docs/specs/pdr-spec.md
 4. docs/artifacts/pdr-template.md
@@ -30,7 +29,7 @@ Prompt:
 Follow the prompt in docs/prompts/pdr-prompt.md.
 Use the template exactly. Satisfy all hard gates in the spec.
 The decision authority must be a named individual.
-Do not invent alternatives or tradeoffs — mark any missing information
+Do not invent alternatives or tradeoffs. Mark any missing information
 with [MISSING: reason]. Output pure Markdown."
 ```
 
@@ -54,9 +53,8 @@ Do not suggest improvements. Judge only what is explicitly present.
 Output JSON using the format defined in docs/validators/pdr-validator.md."
 ```
 
----
 
-## ISPEC — Generation Session
+## ISPEC. Generation Session
 
 **Session setup:**
 ```
@@ -72,7 +70,7 @@ Prompt:
 Follow the prompt in docs/prompts/ispec-prompt.md.
 Use the template exactly. Satisfy all hard gates in the spec.
 All resource values must include units. All cost estimates must include currency.
-Do not invent resource sizes without basis — mark any missing information
+Do not invent resource sizes without basis. Mark any missing information
 with [MISSING: reason]. Output pure Markdown."
 ```
 
@@ -96,9 +94,8 @@ Do not suggest improvements. Judge only what is explicitly present.
 Output JSON using the format defined in docs/validators/ispec-validator.md."
 ```
 
----
 
-## EM — Generation Session
+## EM. Generation Session
 
 **Session setup:**
 ```
@@ -113,16 +110,16 @@ Prompt:
 "Generate an Environment Matrix using the provided inputs.
 Follow the prompt in docs/prompts/em-prompt.md.
 Use the template exactly. Satisfy all hard gates in the spec.
-Document all environments — do not omit any that exist.
+Document all environments. Do not omit any that exist.
 Every difference between environments must have a justification.
-Do not assume parity — confirm identical aspects explicitly.
+Do not assume parity. Confirm identical aspects explicitly.
 Output pure Markdown."
 ```
 
 **After generation:** Review the EM. Confirm:
 - All environments are listed (no shadow or undocumented environments)
 - Promotion rules match your actual deployment pipeline
-- Parity assessment is accurate — verify differences and identical aspects
+- Parity assessment is accurate, verify differences and identical aspects
 - Access controls match your actual IAM configuration
 - Data management reflects your compliance requirements
 
@@ -139,7 +136,6 @@ Do not suggest improvements. Judge only what is explicitly present.
 Output JSON using the format defined in docs/validators/em-validator.md."
 ```
 
----
 
 ## Troubleshooting
 
@@ -147,7 +143,7 @@ Output JSON using the format defined in docs/validators/em-validator.md."
 Check that the generation session included all required inputs. Missing inputs are the most common cause of multi-gate failures.
 
 **Decision statement flagged as vague**
-Ensure the decision context provided to the generation session includes a specific decision — not a question or exploration. The AI cannot make the decision; it can only document one.
+Ensure the decision context provided to the generation session includes a specific decision. Not a question or exploration. the ai cannot make the decision; it can only document one.
 
 **Alternatives section is thin**
 The decision maker must provide the alternatives that were actually considered. If only one option was evaluated, the PDR will fail Gate 3. Go back to the decision maker for the alternatives.
@@ -156,7 +152,7 @@ The decision maker must provide the alternatives that were actually considered. 
 Provide load testing data or historical performance data to the generation session. Without evidence, scaling thresholds are arbitrary and the ISPEC will note them as estimates.
 
 **Parity assessment is generic**
-Provide specific environment details to the generation session — instance counts, database sizes, feature flag states, external service connections. Generic input produces generic parity assessments.
+Provide specific environment details to the generation session. Instance counts, database sizes, feature flag states, external service connections. generic input produces generic parity assessments.
 
 **Data management is incomplete**
-Ensure the team has answered: what data is in each environment? Is any of it production data? How is it refreshed? This information must come from the team — the AI cannot determine it.
+Ensure the team has answered: what data is in each environment? Is any of it production data? How is it refreshed? This information must come from the team: the AI cannot determine it.

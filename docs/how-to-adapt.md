@@ -30,7 +30,6 @@ The ISPEC template includes common resource categories (compute, storage, networ
 
 The EM spec requires at least 2 environments (one non-production, one production). If your organization has more environments (e.g., dev, test, staging, pre-prod, production), include all of them. The EM must document every environment that exists.
 
-
 ## What Not to Adapt
 
 ### Specs
@@ -47,7 +46,6 @@ Validators evaluate against specs. If a validator is producing unexpected result
 
 `docs/governance-model.md` is a synchronized copy of the canonical governance model. Do not edit it. If you believe the governance model should change, update `aieos-governance-foundation/governance-model.md` and sync all kit copies.
 
-
 ## Adding Artifact Types
 
 If your organization needs additional governed artifacts (e.g., a capacity planning record, a network security assessment), follow the four-file system:
@@ -58,7 +56,6 @@ If your organization needs additional governed artifacts (e.g., a capacity plann
 4. Write the prompt. Generation behavior, references spec and template
 
 Register the new artifact type in the playbook, index, and CLAUDE.md.
-
 
 ## Tool Bindings
 
@@ -75,7 +72,6 @@ docs/bindings/
 
 Bindings are not governed artifacts. They have no spec, validator, or prompt. update them when your tooling changes without touching the governed files.
 
-
 ## Scaling to Multiple Systems
 
 This kit governs infrastructure per system or service. For organizations with many systems:
@@ -83,7 +79,6 @@ This kit governs infrastructure per system or service. For organizations with ma
 1. Each system gets its own ISPEC and EM (with appropriate version IDs).
 2. PDRs may be shared across systems if the decision applies broadly (e.g., "adopt Terraform for all infrastructure").
 3. Shared PDRs are referenced by each system's ISPEC.
-
 
 ## First-Time Setup Checklist
 

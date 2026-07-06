@@ -12,7 +12,6 @@ This guide explains how to set up AI sessions for each step in the Platform & In
 
 **Include full frozen documents.** Do not summarize upstream artifacts. Provide the complete document.
 
-
 ## PDR. Generation Session
 
 **Session setup:**
@@ -52,7 +51,6 @@ Use only the spec as the source of truth for pass/fail criteria.
 Do not suggest improvements. Judge only what is explicitly present.
 Output JSON using the format defined in docs/validators/pdr-validator.md."
 ```
-
 
 ## ISPEC. Generation Session
 
@@ -94,7 +92,6 @@ Do not suggest improvements. Judge only what is explicitly present.
 Output JSON using the format defined in docs/validators/ispec-validator.md."
 ```
 
-
 ## EM. Generation Session
 
 **Session setup:**
@@ -135,7 +132,6 @@ Use only the spec as the source of truth for pass/fail criteria.
 Do not suggest improvements. Judge only what is explicitly present.
 Output JSON using the format defined in docs/validators/em-validator.md."
 ```
-
 
 ## Troubleshooting
 

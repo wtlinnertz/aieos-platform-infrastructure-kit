@@ -6,11 +6,12 @@
 
 | Field | Value |
 |-------|-------|
-| PDR ID | PDR-{PROJECT}-{NNN} |
+| Artifact ID | PDR-{PROJECT}-{NNN} |
+| Owner | {owner} |
 | Decision Title | {concise label for this decision} |
 | Decision Authority | {named individual who made the decision} |
 | Date | {YYYY-MM-DD} |
-| Status | Draft / Validated / Frozen / Superseded |
+| Status | DRAFT |
 | Superseded By | {PDR-{PROJECT}-{NNN} — only if status is Superseded} |
 | Related PDRs | {list of related PDR IDs, or "None"} |
 | Governance Model Version | 1.0 |

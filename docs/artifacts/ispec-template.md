@@ -6,11 +6,11 @@
 
 | Field | Value |
 |-------|-------|
-| ISPEC ID | ISPEC-{PROJECT}-{NNN} |
+| Artifact ID | ISPEC-{PROJECT}-{NNN} |
 | System Name | {system name} |
 | Owner | {team or role responsible for infrastructure} |
 | Version | v{N} |
-| Status | Draft / Validated / Freeze Pending / Frozen |
+| Status | DRAFT |
 | Scope | {which system(s) or service(s) this ISPEC governs} |
 | PDR References | {list of frozen PDR IDs that inform this ISPEC} |
 | Governance Model Version | 1.0 |

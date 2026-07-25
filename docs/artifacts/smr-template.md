@@ -4,11 +4,11 @@
 
 | Field | Value |
 |-------|-------|
-| SMR ID | SMR-{PROJECT}-{NNN} |
+| Artifact ID | SMR-{PROJECT}-{NNN} |
 | System Name | {system name} |
 | Owner | {name or team} |
 | Version | {vN.N} |
-| Status | {Draft / Validated / Frozen / Deprecated} |
+| Status | DRAFT |
 | Date | {YYYY-MM-DD} |
 | ISPEC Reference | {ISPEC ID, confirmed Frozen} |
 | PDR References | {PDR IDs, or "None"} |

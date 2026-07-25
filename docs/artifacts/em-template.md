@@ -6,11 +6,11 @@
 
 | Field | Value |
 |-------|-------|
-| EM ID | EM-{PROJECT}-{NNN} |
+| Artifact ID | EM-{PROJECT}-{NNN} |
 | System Name | {system name} |
 | Owner | {team or role responsible for environment management} |
 | Version | v{N} |
-| Status | Draft / Validated / Freeze Pending / Frozen |
+| Status | DRAFT |
 | Scope | {which system(s) or project(s) this EM governs} |
 | ISPEC Reference | {frozen ISPEC ID and version} |
 | Governance Model Version | 1.0 |
